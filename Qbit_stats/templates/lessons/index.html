@@ -1,0 +1,81 @@
+{% extends "main_wrapper.html" %}
+{% load static %}
+{% load lessons_tag %}
+{% block title %}
+  Lessons
+{% endblock %}
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'lessons/css/style.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="calendar default-block">
+    <p class="year">{{ year }}</p>
+    <nav class="calendar-navigation">
+      <div class="calendar-left-arrow">
+        <a href="{% url 'lessons' %}{{ year }}/{{ month|add:-1 }}"><img class="left_arrow" src="{% static 'images/left-arrow.svg' %}" alt=""></a>
+      </div>
+      <div class="calendar-month">
+        {% month_to_text month=month as month_text %}
+        {{month_text}}
+      </div>
+      <div class="calendar-right-arrow">
+        <a href="{% url 'lessons' %}{{ year }}/{{ month|add:1 }}"><img class="right_arrow" src="{% static 'images/right-arrow.svg' %}" alt=""></a>
+      </div>
+    </nav>
+    <div class="calendar-weeks">
+      <ul>
+        <li>Пн</li>
+        <li>Вт</li>
+        <li>Ср</li>
+        <li>Чт</li>
+        <li>Пт</li>
+        <li>Сб</li>
+        <li>Вс</li>
+      </ul>
+    </div>
+    <div class="calendar-content">
+      <table>
+        {% for week in calendar %}
+          <tr>
+            {% for day_i in week %}
+              <td>
+                {% if day_i != None  %}
+                  <div class="calendar-day {% if day_i == day_now and month == month_now and year == year_now %} day_now {% endif %}">
+                    <p>{{ day_i }}</p>
+                    <div class="day_lessons">
+                      {% get_lessons group_name=active_group days=calendar day=day_i as lessons %}
+                      {% for lesson in lessons %}
+                        {% if lesson %}
+                          <div class="lesson_dot {% if lesson.status == 0 %}defualt_lesson{% else %}exam{% endif %}"></div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <div class="calendar-day__hidden-info" style="visibility: hidden; display: none;">
+                      <p>{{ day_i }}</p>
+                      {% get_lessons group_name=active_group days=calendar day=day_i as lessons %}
+                      {% if lessons %}
+                        {% for lesson in lessons %}
+                            <p>{{ lesson }}</p>
+                        {% endfor %}
+                      {% else %}
+                        <p>You have no lessons for {% if day_i == day_now and month == month_now and year == year_now %} today {% else %} that day {% endif %}</p>
+                      {% endif %}
+                    </div>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  <div class="calendar-info default-block">
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript" src="{% static 'lessons/js/day_deteils.js' %}"></script>
+  <script type="text/javascript">
+    $('img.left_arrow').each(icon_convert);
+    $('img.right_arrow').each(icon_convert);
+  </script>
+{% endblock %}

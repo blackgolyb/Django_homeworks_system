@@ -1,0 +1,172 @@
+{% extends "main_wrapper.html" %}
+{% load static %}
+{% load homeworks_tag %}
+{% block title %}
+    Homeworks
+{% endblock %}
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'homeworks/css/homework_template_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'homeworks/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% if user.is_teacher %}
+      {% if complite_homeworks %}
+          <span>homeworks</span>
+          <div class="comment-editor__wrapper">
+            <div class="comment-editor default-block">
+              <form action="" method="post" name="filter_homework">
+                <section class="comment-editor__text-editor default-block">
+                  <textarea class="default-block" name="comment-text"></textarea>
+                </section>
+                <section class="comment-editor__tools">
+                  <section class="comment-editor__tools__left">
+                    <div class="default-btn comment-editor__tools__save">
+                      seve
+                    </div>
+                    <input type="submit" class="default-btn comment-editor__tools__save" value="save" name="save">
+                    <input type="submit" class="default-btn comment-editor__tools__delete" value="delete" name="delete">
+                  </section>
+                  <div class="default-btn comment-editor__tools__seve">
+                    cencel
+                  </div>
+                </section>
+              </form>
+            </div>
+          </div>
+          <div class="homeworks">
+              <section class="homework default-block">
+                <div class="homework__context">
+                  <header>
+                    <h2>some name</h2>
+                    <h2>Дополнительная информация</h2>
+                    <hr>
+                  </header>
+                  <div class="homework__additional-information">
+                    <p>
+                      Учитель:
+                      <a href="#">tc</a>
+                    </p>
+                    <p> Дата загрузки: 20.02.2020</p>
+                  </div>
+                  <div class="homework__buttons">
+                       <a class="homework__file" href="" onclick="alert('no file for download')">Скачать</a>
+                    <input id="homework-1" type="file" name="homework_file" onchange="this.form.submit()"><!--  onchange="uploadHomework(this)" -->
+                    <label class="homework__file" for="homework-1">Загрузить</label>
+                  </div>
+                </div>
+                <div class="homework__background1">
+                </div>
+                <div class="homework__background">
+                    <span>name</span>
+                </div>
+              </section>
+          </div>
+      {% endif %}
+    {% else %}
+      {% if homework_list or individual_homeworks %}
+          <div class="filter">
+            <form action="{% url 'homeworks_filter' %}" method="get" name="filter_homework">
+                <ul>
+                  <li>
+                    <span>not done</span>
+                    <input type="checkbox" name="status" value="0">
+                    <!--<input type="radio" name="theme" value="0" checked>-->
+                  </li>
+                  <li>
+                    <span>expected</span>
+                    <input type="checkbox" name="status" value="1">
+                  </li>
+                  <li>
+                    <span>done</span>
+                    <input type="checkbox" name="status" value="2">
+                  </li>
+                </ul>
+
+                <ul>
+                  <li>
+                    <span>week</span>
+                    <input type="radio" name="date" value="week">
+                  </li>
+                  <li>
+                    <span>month</span>
+                    <input type="radio" name="date" value="month">
+                  </li>
+                  <li>
+                    <span>all</span>
+                    <input type="radio" name="date" value="all">
+                  </li>
+                </ul>
+
+                <ul>
+                  {% get_topics group_name=active_group as topics %}
+                  {% for topic in topics %}
+                    <li>
+                      <span>{{topic}}</span>
+                      <input type="checkbox" name="topic" value="{{topic}}">
+                    </li>
+                  {% endfor %}
+                </ul>
+
+                <input type="submit">
+            </form>
+          </div>
+      {% endif %}
+
+      {% if homework_list %}
+          <span>homeworks</span>
+          <div class="homeworks">
+              {% for homework in homework_list %}
+                  {% get_status homework_id=homework.id user_id=user.id as status %}
+                  {% include "homeworks/homework_template.html" %}
+              {% endfor %}
+          </div>
+      {% endif %}
+
+      {% if individual_homeworks %}
+          <span>individual homeworks</span>
+          <div class="individual-homeworks">
+              {% for homework in individual_homeworks %}
+                {% include "homeworks/homework_template.html" %}
+              {% endfor %}
+          </div>
+      {% endif %}
+    {% endif %}
+
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script src="http://twitter.github.io/hogan.js/builds/3.0.1/hogan-3.0.1.js"></script>
+    <script src="{% static 'js/ajax_send.js' %}"></script>
+    {% if user.is_teacher %}
+    <script src="{% static 'homeworks/js/filter.js' %}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{% static 'js/default_blocks.js' %}"></script>
+    <!--
+    <script type="text/javascript">
+
+    function uploadHomework(elm){
+        var photo = elm.value;
+        var id = elm.id;
+        console.log(new URLSearchParams(new FormData(elm.form)).toString());
+        let url = elm.form.action;
+        //let params = new URLSearchParams(new FormData(this.form)).toString();
+        //console.log(params);
+        //ajaxSend(url, params);
+
+        for (var i = 0; i < id.length; i++) {
+            if (id[i] == '-') {
+                id = id.slice(i+1, id.length);
+                break;
+            }
+        }
+        console.log(id);
+        console.log(photo);
+        console.log(url);
+      }
+    </script>
+    -->
+{% endblock %}

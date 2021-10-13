@@ -1,0 +1,41 @@
+:root{
+	/*filter: invert(100%);*/
+
+	--left-nav-width: 60px;
+	--default-block-radius: 5px;
+
+	--default-transition-time: 0.5s;
+	--min-transition-time: 0.3s;
+
+	/*
+	colors
+	*/
+	--homework-done-color: #5EE865;/*    1)#37F040 2)#34FA3E 3)#0CF01F*/
+  --homework-expected-color: #FAE964;/*          2)#F7EB3A 3)#EFFA1E*/
+  --homework-not-done-color: #82E4FF;/*          2)#77BEFB 3)#3BFFF3*/
+	--nav-color: none;
+	--header-color: none;
+	--active-page-color: none;
+	--nav-hover-color: none;
+	--main-text-color: none;
+	--main-invert-text-color: none;
+	--nav-icons-color: none;
+	--header-icons-color: none;
+	--content-color: none;
+	--blocks-color: none;
+	--shadow-color: none;
+
+	/*colors
+	7f92dd blue
+	*/
+	--main-dark-color: #181818;
+	--main-light-color: #fff;
+	--main-red-color: #ff3f40;
+	--main-light-red-color: #ff5657;
+	--main-dark-gray-color: #303030;
+	--main-gray-color: #ccc;
+	--main-light-gray-color: #f0f0f0;
+	--ligth-shadow-color: #cecece;
+	--transperent-gray: rgba(150, 150, 150, .5);
+
+}

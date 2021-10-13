@@ -1,0 +1,24 @@
+{% extends "main_wrapper.html" %}
+{% load static %}
+{% block title %}
+{{member.username}}
+{% endblock %}
+{% block links %}
+{% endblock %}
+{% block content %}
+
+<div>
+  {% if member.self_img.url != None %}
+    <img src="{{ member.self_img.url }}" style="width: 100px; height: 100px;">
+  {% else %}
+    <img src="{% static '/images/default_face.png' %}">
+  {% endif %}
+
+  {{member.username}}
+  {{member.full_name}}
+  {{member.email}}
+  {{member.dob_return}}
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "main_wrapper.html" %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static 'profile/css/style.css' %}">
+{% endblock %}
+{% block title %}
+Profile
+{% endblock %}
+{% block content %}
+  <div>
+    {% if user.self_img.url != None %}
+      <img id="user-img" src="{{ user.self_img.url }}" style="display: none; vivible: hidden;" >
+    {% else %}
+      <img id="user-img" style="display: none; vivible: hidden;" src="{% static '/images/default_face.png' %}">
+    {% endif %}
+
+    <form name="profile_form" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input class="invisible-field" type="number" value="" name="canvas_h">
+      <input class="invisible-field" type="number" value="" name="canvas_w">
+      <input class="invisible-field" type="number" value="" name="x1">
+      <input class="invisible-field" type="number" value="" name="y1">
+      <input class="invisible-field" type="number" value="" name="x2">
+      <input class="invisible-field" type="number" value="" name="y2">
+
+      <div class="profile-form__top">
+        <div class="preview-img default-block">
+          <canvas id="preview-canvas" width="200" height="200"></canvas>
+          <input id="profile-img" type="file" name="self_img" value="">
+        </div>
+        <div class="profile-form__fields default-block">
+          <input type="text" value="{{user}}" placeholder="" name="username">
+          <input type="text" value="{{user.email}}" placeholder="" name="email">
+          <input type="text" value="{% if user.full_name %}{{ user.full_name }}{% else %}{% endif %}" placeholder="" name="full_name">
+          <input type="date" value="{{ user.dob_return }}" name="dob">
+        </div>
+      </div>
+
+      <div class="profile-form__submit default-block">
+        <button class="default-btn" type="submit" name="button">Отвравить</button>
+      </div>
+    </form>
+
+  </div>
+
+  <form method="post" action="{% url 'set_theme' %}">
+    {% csrf_token %}
+    <input type="radio" name="theme" value="light" onchange="this.form.submit()" {% if theme_name == 'light' %}checked{% endif %}>
+    <input type="radio" name="theme" value="dark" onchange="this.form.submit()" {% if theme_name == 'dark' %}checked{% endif %}>
+    <input type="radio" name="theme" value="custom" onchange="this.form.submit()" {% if theme_name == 'custom' %}checked{% endif %}>
+  </form>
+  <form method="post" action="{% url 'set_custom_theme' %}">
+    {% csrf_token %}
+    <div class="theme-customizer">
+      <div class="theme">
+        <div class="theme-maxsize default-block">
+          <div class="empty theme-maxsize__left-nav">
+            <input type="color" name="theme-maxsize__left-nav" value="">
+
+            <div class="empty theme-maxsize__left-nav__icons">
+              <input type="color" name="theme-maxsize__left-nav__icons" value="">
+            </div>
+
+            <div class="empty theme-maxsize__left-nav__hover">
+              <input type="color" name="theme-maxsize__left-nav__hover" value="">
+            </div>
+
+            <div class="empty theme-maxsize__left-nav__active-page">
+              <input type="color" name="theme-maxsize__left-nav__active-page" value="">
+            </div>
+
+          </div>
+          <div class="theme-maxsize__right-section">
+            <div class="empty theme-maxsize__header">
+              <input type="color" name="theme-maxsize__header" value="">
+
+              <div class="empty theme-maxsize__header__icons">
+                <input type="color" name="theme-maxsize__header__icons" value="">
+              </div>
+            </div>
+            <div class="empty theme-maxsize__body">
+              <input type="color" name="theme-maxsize__body" value="">
+
+              <div class="empty theme-maxsize__body__content">
+                  <input type="color" name="theme-maxsize__body__content" value="">
+                  <div class="empty theme-maxsize__text-color">
+                      <input type="color" name="theme-maxsize__text-color" value="">
+                  </div>
+                  <div class="empty theme-maxsize__text-invert-color">
+                      <input type="color" name="theme-maxsize__text-invert-color" value="">
+                  </div>
+                  <div class="empty theme-maxsize__homework-done">
+                      <input type="color" name="theme-maxsize__homework-done" value="">
+                  </div>
+                  <div class="empty theme-maxsize__homework-expected">
+                      <input type="color" name="theme-maxsize__homework-expected" value="">
+                  </div>
+                  <div class="empty theme-maxsize__homework-not-done">
+                      <input type="color" name="theme-maxsize__homework-not-done" value="">
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="colors default-block">
+        <input type="color" id="color">
+        <section class="colors__colors-list">
+        </section>
+        <div class="add-color"></div>
+      </div>
+      <div class="submit-section default-block">
+        <input type="submit" value="submit">
+      </div>
+      <a href="{% url 'password_change' %}">chg pswd</a>
+  </div>
+</form>
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript" src="{% static 'profile/js/theme.js' %}"></script>
+  <script type="text/javascript" src="{% static 'profile/js/profile_img.js' %}"></script>
+{% endblock %}

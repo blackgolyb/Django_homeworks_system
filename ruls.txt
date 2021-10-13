@@ -1,0 +1,5 @@
+ sudo systemctl restart httpd
+ sudo systemctl restart mysql
+
+ python vevn:
+    source evn/bin/activate

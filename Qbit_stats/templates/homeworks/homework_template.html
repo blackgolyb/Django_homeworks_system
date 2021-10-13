@@ -1,0 +1,38 @@
+<section class="homework default-block {% if status == 0 %}not_done{% elif status == 1 %}expected{% else %}done{% endif %}">
+	<form action="{% url 'homeworks_upload' id=homework.id %}" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="homework__context">
+			<header>
+				<h2>{{ homework.name }}</h2>
+				<h2>Дополнительная информация</h2>
+				<hr>
+			</header>
+			<div class="homework__additional-information">
+				<p>
+					Учитель:
+					<a href="{{ homework.teacher.get_absolute_url }}">{% if homework.teacher.full_name %}{{ homework.teacher.full_name }}{% else %}{{ homework.teacher }}{% endif %}</a>
+				</p>
+				<p> Дата загрузки: {{ homework.date }}</p>
+			</div>
+			<div class="homework__buttons">
+				{% if homework.file %}
+				   <a class="homework__file" href="{{ homework.file.url }}" download>Скачать</a>
+				{% else %}
+					 <a class="homework__file" href="" onclick="alert('no file for download')">Скачать</a>
+				{% endif %}
+		    <input id="homework-{{homework.id}}" type="file" name="homework_file" onchange="this.form.submit()"><!--  onchange="uploadHomework(this)" -->
+				<label class="homework__file" for="homework-{{homework.id}}">Загрузить</label>
+			</div>
+			{% if homework.complite_homework %}
+				{{ homework.complite_homework }}
+				<a href="{{ homework.complite_homework.file.url }}" download>download you homework</a>
+			{% endif %}
+
+		</div>
+		<div class="homework__background1">
+		</div>
+		<div class="homework__background">
+				<span>{{ homework.name }}</span>
+		</div>
+	</form>
+</section>

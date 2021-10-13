@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="{% static 'preloader/css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main_colors.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'home_page/css/main_home_page.css' %}">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+</head>
+<body class="light">
+  <div class="preloader" id="page-preloader">
+		<div class="loader">
+			<div class="📦"></div>
+			<div class="📦"></div>
+			<div class="📦"></div>
+			<div class="📦"></div>
+			<div class="📦"></div>
+		</div>
+	</div>
+  <div class="wrapper">
+    <header class="header">
+      <img src="{% static 'images/logo.png' %}" alt="logo" class="header__logo"><!--{% static 'images/main_bg.jpg' %}-->
+      <section class="header__login default-btn"><a href="{% url 'login' %}">login</a></section>
+    </header>
+    <div class="content">
+      <div class="main-img">
+        <div class="contact-btn default-btn">
+          <a href="#contact">contact</a>
+        </div>
+      </div>
+      <div class="news">
+        {% if article %}
+          {% for article in articles %}
+            <section class="article default-block">
+              <header class="article__header"></header>
+            </section>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="articles">
+        {% if article %}
+          {% for article in articles %}
+            <section class="article default-block">
+              <header class="article__header"></header>
+            </section>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div id="contact">
+
+    </div>
+    <footer class="footer"></footer>
+  </div>
+  <script type="text/javascript" src="{% static 'preloader/js/preloader.js' %}"></script>
+  <script>
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 50) {
+        document.querySelector('.header').classList.add('visible');
+      } else {
+        document.querySelector('.header').classList.remove('visible');
+      }
+    });
+
+
+    /*window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 50) {
+        document.querySelector('.header').classList.add('visible');
+      } else {
+        document.querySelector('.header').classList.remove('visible');
+      }
+    });*/
+  </script>
+</body>
+</html>

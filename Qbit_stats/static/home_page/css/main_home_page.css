@@ -1,0 +1,122 @@
+*{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root{
+  --header-height: 50px;
+}
+
+.header{
+  background-color: none;
+  border-bottom: 1px solid var(--main-light-color);
+  position: fixed;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+  -ms-align-items: center;
+  align-items: center;
+  padding: 0 10px;
+  height: var(--header-height);
+  width: 100%;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  transition: all var(--default-transition-time);
+}
+
+.header.visible{
+  background-color: var(--main-light-color);
+  box-shadow: 0 1px 5px  var(--shadow-color);
+}
+
+.header__logo{
+  width: 85px;
+  height: 40px;
+  filter: invert(100%);
+  transition: all var(--default-transition-time);
+}
+
+.header.visible .header__logo{
+  filter: none;
+}
+
+.header__login{
+  --btn-color: var(--main-light-color);
+	--btn-bg-color: var(--main-dark-gray-color);
+}
+
+.header.visible .header__login{
+  --btn-color: var(--main-dark-gray-color);
+	--btn-bg-color: var(--main-light-color);
+}
+
+body{
+	background-color: var(--main-light-gray-color);
+  -webkit-animation: bugfix infinite 1s;
+}
+
+.content{
+  /*margin-top: var(--header-height);*/
+  padding-bottom: 100px;
+}
+
+.main-img{
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5) fixed;
+	overflow: hidden;
+}
+
+
+.main-img::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*filter: blur(5px);
+  transform: translate(-15px, -15px);
+  margin: -30px;*/
+	z-index: -1;
+  background: url("/static/images/main_bg.jpg");
+  background-size: 100% 100%;
+}
+
+/*.main-img__blur{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+}*/
+
+.main-img .contact-btn{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  --btn-color: var(--main-light-color);
+	--btn-bg-color: var(--main-dark-gray-color);
+  padding: 10px 15px;
+}
+
+.footer{
+  height: var(--header-height);
+  width: 100%;
+  background: var(--main-dark-gray-color);
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (max-width: 767px) {
+
+}

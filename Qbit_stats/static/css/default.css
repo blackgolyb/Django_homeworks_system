@@ -1,0 +1,150 @@
+.default-block{
+	border-radius: var(--default-block-radius);
+	background-color: var(--blocks-color);
+	color: var(--main-text-color);
+}
+
+.default-btn{
+	--btn-color: var(--main-dark-gray-color);
+	--btn-bg-color: var(--main-light-color);
+	border: 2px solid var(--btn-color);
+	cursor: pointer;
+	transition: var(--min-transition-time);
+	border-radius: 5px;
+	padding: 5px;
+	height: auto;
+  width: auto;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.default-btn a,
+.default-btn span{
+	text-decoration: none;
+	color: var(--btn-color);
+	transition: var(--min-transition-time);
+	text-align: center;
+}
+
+.default-btn:hover{
+	background-color: var(--btn-color);
+}
+
+.default-btn:hover a,
+.default-btn:hover span{
+	color: var(--btn-bg-color);
+}
+
+.default-fixed-block{
+	width: 80%;
+	height: 80%;
+	left: 50%;
+	top: 50%;
+	padding: 20px;
+	transform: translate(-50%, -50%);
+	position: fixed;
+	z-index: 100;
+
+	display: none;
+	visibility: hidden;
+}
+
+.default-fixed-wrap.active .default-fixed-block{
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	visibility: visible;
+}
+
+.default-fixed-block__header{
+	width: 100%;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	justify-content: right;
+	-ms-align-items: center;
+	align-items: center;
+}
+
+.default-fixed-block__content{
+
+}
+
+.default-fixed-block__background{
+	background-color: rgba(0, 0, 0, .5);
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	position: fixed;
+	z-index: 99;
+	display: none;
+	visibility: hidden;
+}
+
+.default-fixed-wrap.active .default-fixed-block__background{
+	display: block;
+	visibility: visible;
+}
+
+.default-fixed-block__open{
+	width: auto;
+}
+
+.default-fixed-block__close {
+  width: 30px;
+  height: 30px;
+	position: relative;
+}
+
+.default-fixed-block__close:before, .default-fixed-block__close:after {
+	position: absolute;
+	display: block;
+  content: ' ';
+  height: 31px;
+  width: 2px;
+	left: 50%;
+	transform: translateX(-50%);
+  background-color: var(--main-text-color);
+}
+.default-fixed-block__close:before {
+  transform: rotate(45deg);
+}
+.default-fixed-block__close:after {
+  transform: rotate(-45deg);
+}
+
+/*
+.default-fixed-block__close{
+	width: 30px;
+	height: 30px;
+}
+
+.default-fixed-block__close::after, .default-fixed-block__close::before{
+	content: '';
+	width: 100%;
+	height: 2px;
+	background-color: var(--main-text-color);
+	display: block;
+}
+
+.default-fixed-block__close::before{
+	transform: rotate(45deg);
+	left: 0;
+	top: 0;
+}
+
+.default-fixed-block__close::after{
+	transform: rotate(-45deg);
+	left: 0;
+	bottom: 0;
+}
+*/

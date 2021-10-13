@@ -1,0 +1,513 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/*:root{
+	filter: invert(100%);
+}*/
+
+body{
+	background-color: #eae7e5;
+  -webkit-animation: bugfix infinite 1s;
+}
+
+header{
+	display: flex;
+	margin: auto;
+	width: 100%;
+	height: 80px;
+	background-color: #fff;
+	border-bottom: 2px solid #cecece;
+	box-shadow: 0 1px 5px  #cecece;
+	justify-content: space-between;
+}
+
+body::-webkit-scrollbar{
+	width: 15px;
+}
+
+body::-webkit-scrollbar-track{
+	background: #eae7e5;
+	border: 2px solid #c1c1c1;
+}
+
+body::-webkit-scrollbar-thumb{
+	background: #313030;
+}
+
+
+.content{
+	height: 1000px;
+	width: 100%;
+	margin: 20px;
+}
+
+.left_menu{
+	position: relative;
+	height: auto;
+	background-color: #313030;
+	width: 60px;
+}
+
+.right_menu{
+	width: 100%;
+}
+
+.wrap{
+	display: flex;
+	height: 100%;
+}
+
+.status_bar{
+	top: 50%;
+	left: 10px;
+	height: 60px;
+	padding: 0 10px;
+	width: max-content;
+	position: relative;
+	display: flex;
+	background-color: #e0dede;
+	box-shadow: 1px 1px 0px 1px #eaeaea, inset 1px 1px 0px 1px #c1c1c1, 1px 1px 2px 2px #c1c1c1;
+	border-radius: 30px;
+	transform: translate(0, -50%)
+}
+
+.status_bar_text{
+	position: relative;
+	top: 50%;
+	transform: translate(0, -50%);
+	margin-left: 10px;
+	width: max-content;
+	height: auto;
+}
+
+.avatar{
+	position: relative;
+	width: 50px;
+	height: 50px;
+	top: 50%;
+	transform: translate(0, -50%)
+}
+
+.avatar .photo{
+	border-radius: 100%;
+}
+
+.is_admin{
+	position: absolute;
+	right: -2px;
+	top: -2px;
+}
+
+.exit{
+		position: relative;
+		top: 50%;
+		right: 10px;
+		height: max-content;
+		border: 2px solid #313030;
+		border-radius: 5px;
+		padding: 5px;
+		transition: 0.25s;
+		cursor: pointer;
+		transform: translate(0, -50%)
+}
+
+.exit a{
+	color: #313030;
+	text-decoration: none;
+	transition: 0.25s;
+}
+
+.exit:hover{
+	background-color: #313030;
+}
+
+.exit:hover a{
+	color: #fff;
+}
+
+.avatar img{
+	margin-left: 2px;
+	margin-top: 2px;
+	width: 46px;
+	height: 46px;
+}
+
+.name, .group{
+	position: relative;
+	width: auto;
+}
+
+.name p, .group p{
+	color: #000;
+}
+
+.name{
+	top: 50%;
+	transform: translate(0, -100%)
+}
+
+.group{
+	transform: translate(0, 60%)
+}
+
+.groups{
+	background: None;
+	border: None;
+	appearance: None;
+	/*box-sizing: border-box;*/
+}
+
+.groups:focus {
+	border-color: None;
+	box-shadow: None;
+	outline: none;
+}
+
+.groups:hover {
+	/*border: 1px solid #a0a0a0;*/
+	cursor: pointer;
+}
+
+.groups option {
+	background-color: #eae7e5;
+	border-radius: 5px;
+	border: None;
+}
+
+.active_page{
+	background-color: #cb3435;
+	border: None;
+}
+
+
+
+/*--------------------------------------------start footer------------------------------------------------*/
+
+footer {
+  position: relative;
+	background-color: #313030;
+  left: 0;
+  bottom: 0;
+	height: 50px;
+	width: 100%
+}
+
+/*---------------------------------------------end footer-------------------------------------------------*/
+
+
+
+/*---------------------------------------------start menu-------------------------------------------------*/
+
+.nav {
+    width: 390px;
+    min-width: 390px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    left: -390px;
+    padding: 15px 0;
+    -webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    transition: left 0.3s;
+    background: #313030;
+    z-index: 2;
+    opacity: 1;
+
+}
+
+.nav a{
+    color: #fff !important;
+}
+
+.nav-toggle {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    left: 402px;
+    top: 25px;
+    padding: 0.5em;
+    background: url("../images/menu_cross.png") no-repeat;
+    background-size: 30px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 2em;
+    line-height: 1;
+    z-index: 2;
+    -webkit-transition: color .25s ease-in-out;
+    -moz-transition: color .25s ease-in-out;
+    transition: color .25s ease-in-out;
+}
+
+
+/* определяем текст кнопки*/
+
+.nav-toggle:after {
+
+    text-decoration: none;
+}
+
+
+/* цвет текста при наведении */
+
+.nav-toggle:hover {
+    color: #f4f4f4;
+}
+
+
+
+
+/*при просмотре на мобильных устройствах*/
+
+[id='nav-toggle']:checked ~ .nav > .nav-toggle {
+    left: auto;
+    visibility: hidden;
+    right: 15px;
+    top: 0.9em;
+}
+
+.left_menu:hover .nav > .nav-toggle {
+    left: auto;
+    visibility: hidden;
+    right: 15px;
+    top: 0.9em;
+}
+
+
+/** Когда флажок установлен, открывается панель*/
+
+[id='nav-toggle']:checked ~ .nav {
+    left: 0;
+    box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    -moz-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    -webkit-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    overflow-y: auto;
+}
+
+.left_menu:hover .nav {
+    left: 0;
+    box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    -moz-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    -webkit-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    overflow-y: auto;
+}
+
+
+/*символ переключателя*/
+
+[id='nav-toggle']:checked ~ .nav > .nav-toggle:after {
+    position:relative;
+    top: -15px;
+    right: 18px;
+    font-size: 1.5em;
+    content: '\2715';
+    visibility: visible;
+}
+
+.left_menu:hover .nav > .nav-toggle:after {
+    position:relative;
+    top: -15px;
+    right: 18px;
+    font-size: 1.5em;
+    content: '\2715';
+    visibility: visible;
+}
+
+/*это для мобильных устройств*/
+
+@-webkit-keyframes bugfix {
+    to {
+      padding: 0;
+    }
+}
+
+
+@media screen and (min-width: 390px) {
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .nav {
+      width: 100%;
+      box-shadow: none
+    }
+}
+
+
+
+/*формирование непосредственно самих ссылок меню*/
+
+.nav > ul {
+    display: block;
+    margin: 0;
+    padding-top: 5em;
+    list-style: none;
+}
+
+.nav > ul > li {
+    line-height: 1.6;
+    opacity: 0;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: opacity .5s .1s, -webkit-transform .5s .1s, background-color .5s;
+    -moz-transition: opacity .5s .1s, -moz-transform .5s .1s, background-color .5s;
+    -ms-transition: opacity .5s .1s, -ms-transform .5s .1s, background-color .5s;
+    transition: opacity .5s .1s, -ms-transform .5s .1s, background-color .5s;
+}
+
+[id='nav-toggle']:checked ~ .nav > ul > li {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.left_menu:hover .nav > ul > li {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+
+
+/* определение интервалов появления пунктов меню */
+.nav > ul > li:nth-child(1) {
+    -webkit-transition: opacity .5s .1s, -webkit-transform .5s .1s, background-color .5s;
+    transition: opacity .5s .1s, transform .5s .1s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(2) {
+    -webkit-transition: opacity .5s .2s, -webkit-transform .5s .2s, background-color .5s;
+    transition: opacity .5s .2s, transform .5s .2s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(3) {
+    -webkit-transition: opacity .5s .3s, -webkit-transform .5s .3s, background-color .5s;
+    transition: opacity .5s .3s, transform .5s .3s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(4) {
+    -webkit-transition: opacity .5s .4s, -webkit-transform .5s .4s, background-color .5s;
+    transition: opacity .5s .4s, transform .5s .4s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(5) {
+    -webkit-transition: opacity .5s .5s, -webkit-transform .5s .5s, background-color .5s;
+    transition: opacity .5s .5s, transform .5s .5s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(6) {
+    -webkit-transition: opacity .5s .6s, -webkit-transform .5s .6s, background-color .5s;
+    transition: opacity .5s .6s, transform .5s .6s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(7) {
+    -webkit-transition: opacity .5s .7s, -webkit-transform .5s .7s, background-color .5s;
+    transition: opacity .5s .7s, transform .5s .7s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(8) {
+    -webkit-transition: opacity .5s .7s, -webkit-transform .5s .7s, background-color .5s;
+    transition: opacity .5s .7s, transform .5s .7s, background-color .5s;
+}
+
+.nav > ul > li:nth-child(9) {
+    -webkit-transition: opacity .5s .7s, -webkit-transform .5s .7s, background-color .5s;
+    transition: opacity .5s .7s, transform .5s .7s, background-color .5s;
+}
+.nav > ul > li:nth-child(10) {
+    -webkit-transition: opacity .5s .7s, -webkit-transform .5s .7s, background-color .5s;
+    transition: opacity .5s .7s, transform .5s .7s, background-color .5s;
+}
+
+/*оформление ссылок меню*/
+
+.nav > ul > li > a {
+    display: inline-block;
+    position: relative;
+    padding: 10px 0;
+		padding-left: 20px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 300;
+    font-size: 1.7em;
+    color: #dadada;
+    width: 100%;
+    text-decoration: none;
+    -webkit-transition: color .5s ease, padding .5s ease;
+    -moz-transition: color .5s ease, padding .5s ease;
+    transition: color .5s ease, padding .5s ease;
+}
+
+.nav > ul > li > h1 {
+		position: relative;
+    font-family: 'Arial', sans-serif;
+    font-weight: 300;
+    font-size: 1.5em;
+    color: #fff;
+    width: 100%;
+	}
+
+/*изминение ссылок меню при наведении*/
+
+.nav > ul > li:hover a,
+.nav > ul > li:focus a {
+    padding-left: 30px;
+    transition: 0.15s linear;
+}
+
+.nav > ul > li:hover,
+.nav > ul > li:focus{
+    	background-color: #ff3f40;
+}
+
+/* фон затемнения на основной контент*/
+
+
+
+.mask-content {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    visibility: hidden;
+    opacity: 0;
+}
+
+[id='nav-toggle']:checked ~ .mask-content {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: opacity .5s, visibility .5s;
+    transition: opacity .5s, visibility .5s;
+}
+
+
+.left_menu:hover .mask-content {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: opacity .5s, visibility .5s;
+    transition: opacity .5s, visibility .5s;
+}
+
+
+/*----------------------------------------------end menu--------------------------------------------------*/

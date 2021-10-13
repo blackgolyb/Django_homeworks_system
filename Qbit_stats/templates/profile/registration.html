@@ -1,0 +1,26 @@
+{% extends "forms_wrap.html" %}
+{% block title %}
+	Registration
+{% endblock %}
+{% block content %}
+
+<form method="POST" class="login">
+  {% csrf_token %}
+  <h1>Registration</h1>
+
+  {% for field in registaration_form %}
+
+    <section>
+			{{ field.label_tag }}
+      {{ field }}
+
+	    {% for error in field.errors %}
+	      <p>{{error}}</p>
+	    {% endfor %}
+		</section>
+
+  {% endfor %}
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

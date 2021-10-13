@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="{% static 'preloader/css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main_colors.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main_style.css' %}">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if theme_name == 'custom' %}
+        <style type="text/css">
+            :root{
+                --homework-done-color: {{ homework_done_color }};
+                --homework-expected-color: {{ homework_expected_color }};
+                --homework-not-done-color: {{ homework_not_done_color }};
+
+                --nav-color: {{ nav_color }};
+                --header-color: {{ header_color }};
+                --active-page-color: {{ active_page_color }};
+                --nav-hover-color: {{ nav_hover_color }};
+                --main-text-color: {{ main_text_color }};
+                --main-invert-text-color: {{ main_invert_text_color }};
+                --nav-icons-color: {{ nav_icons_color }};
+                --header-icons-color: {{ header_icons_color }};
+                --content-color: {{ content_color }};
+                --blocks-color: {{ blocks_color }};
+            }
+        </style>
+    {% endif %}
+	{% block links %}{% endblock %}
+</head>
+<body class="{{ theme_name }}">
+	<div class="preloader" id="page-preloader">
+		<div class="loader">
+			<div class="📦"></div>
+			<div class="📦"></div>
+			<div class="📦"></div>
+			<div class="📦"></div>
+			<div class="📦"></div>
+		</div>
+	</div>
+	<div class="wrap">
+		<div class="left_menu">
+			<input type="checkbox" id="nav-toggle" hidden>
+			<nav class="nav-icons">
+				<label for="nav-toggle" class="nav-icons__nav-toggle" onclick ><img class="nav-icons__menu-button" src="{% static 'images/menu_button.svg' %}" alt=""></label>
+				<ul>
+					<li {% if view.get_active_page == 0 %} class="active_page" {% endif %}><a href="{% url 'home' %}"><img class="home_icon" src="{% static 'images/home.svg' %}" alt=""></a></li>
+					<li {% if view.get_active_page == 1 %} class="active_page" {% endif %}><a href="{% url 'homeworks' %}"><img class="homework_icon" src="{% static 'images/homework.svg' %}" alt=""></a></li>
+					<li {% if view.get_active_page == 2 %} class="active_page" {% endif %}><a href="{% url 'lessons' %}"><img class="lessons_icon" src="{% static 'images/basic_calendar.svg' %}" alt=""></a></li>
+					<li {% if view.get_active_page == 3 %} class="active_page" {% endif %}><a href="{% url 'profile' %}"><img class="profile_icon" src="{% static 'images/profile.svg' %}" alt=""></a></li>
+					<li {% if view.get_active_page == 4 %} class="active_page" {% endif %}><a href="{% url 'payment_information' %}"><img class="credit_card_icon" src="{% static 'images/credit-card.svg' %}" alt=""></a></li>
+					{% if user.is_superuser %}
+						<li><a href="/admin/"><img class="admin_icon" src="{% static 'images/admin.svg' %}" alt=""></a></li>
+					{% endif %}
+				</ul>
+			</nav>
+			<nav class="nav">
+				<div class="nav__header">
+					<div class="nav__logo"><img src="{% static 'images/logo.png' %}" alt="LOGO" width="219" height="100"></div>
+					<label for="nav-toggle" class="nav-toggle" onclick ><img class="nav__menu-button" src="{% static 'images/menu_cross.svg' %}" alt=""></label>
+				</div>
+	      <ul>
+					<li {% if view.get_active_page == 0 %} class="active_page" {% endif %}><a href="{% url 'home' %}">Home</a></li>
+					<li {% if view.get_active_page == 1 %} class="active_page" {% endif %}><a href="{% url 'homeworks' %}">Homework</a></li>
+					<li {% if view.get_active_page == 2 %} class="active_page" {% endif %}><a href="{% url 'lessons' %}">Lessons</a></li>
+					<li {% if view.get_active_page == 3 %} class="active_page" {% endif %}><a href="{% url 'profile' %}">Profile</a></li>
+					<li {% if view.get_active_page == 4 %} class="active_page" {% endif %}><a href="{% url 'payment_information' %}">Payment information</a></li>
+					{% if user.is_superuser %}
+						<li><a href="/admin/">Admin Page</a></li>
+					{% endif %}
+					<li class="nav-logout"><a href="{% url 'logout' %}">Exit</a></li>
+	       </ul>
+	    </nav>
+			<div class="nav_blur" id="nav_blur"></div>
+		</div>
+
+		<div class="right_menu">
+			<header class="header">
+					<div class="status_bar default-block">
+						<div class="avatar">
+								{% if user.is_superuser %}
+									<img src="{% static '/images/admin.png' %}" class="is_admin" style="width: 20px; height: 14px;">
+								{% endif %}
+								{% if user.self_img.url != None %}
+									<img class="photo" src="{{ user.self_img.url }}">
+								{% else %}
+									<img class="photo" src="{% static '/images/default_face.png' %}">
+								{% endif %}
+						</div>
+						<div class="status_bar_text default-block">
+							<div class="name">
+								{% if user.full_name %}
+				                    <p>{{ user.full_name }}</p>
+								{% else %}
+									<p>Ф.И.О. не указаны</p>
+								{% endif %}
+							</div>
+							<div class="group">
+								<!--
+
+
+
+								-->
+								<form method="get">
+									{% csrf_token %}
+									{% if groups %}
+										<!-- <div class="groups-wrapper">
+
+										</div> -->
+										<select class="groups" onchange="this.form.submit()" name="groups">
+											{% for group in groups %}
+												<option value="{{group}}" {% if active_group == group.name %} selected="selected" {% endif %}>{{group}}</option>
+											{% endfor %}
+										</select>
+										<div class="groups-arrow"></div>
+									{% endif %}
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="exit">
+						<a href="/logout/">
+							Exit
+						</a>
+					</div>
+					<label for="nav-toggle" class="header__nav-toggle" onclick ><img class="header__menu-button" src="{% static 'images/menu_button.svg' %}" alt=""></label>
+			</header>
+			<div class="content">
+				{% block content %}
+
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<p>©Авторские права принадлежат человеку, 2050. Все права защищены.</p>
+	</footer>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'preloader/js/preloader.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/logout.js' %}"></script>
+	<script type="text/javascript">
+		document.getElementById('nav_blur').onclick = function () {
+			document.getElementById('nav-toggle').checked = 0;
+		}
+
+		document.querySelector('.avatar').onclick = function () {
+			document.querySelector('.status_bar_text').classList.toggle("active");
+		}
+
+		function icon_convert(){
+			var $img = $(this);
+			var imgClass = $img.attr('class');
+			var imgURL = $img.attr('src');
+			$.get(imgURL, function(data) {
+				var $svg = $(data).find('svg');
+				if(typeof imgClass !== 'undefined') {
+					$svg = $svg.attr('class', imgClass+' replaced-svg');
+				}
+				$svg = $svg.removeAttr('xmlns:a');
+				if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+					$svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+				}
+				$img.replaceWith($svg);
+			}, 'xml');
+		}
+
+		$('img.nav-icons__menu-button').each(icon_convert);
+		$('img.nav__menu-button').each(icon_convert);
+		$('img.header__menu-button').each(icon_convert);
+		$('img.home_icon').each(icon_convert);
+		$('img.homework_icon').each(icon_convert);
+		$('img.profile_icon').each(icon_convert);
+		$('img.credit_card_icon').each(icon_convert);
+		$('img.admin_icon').each(icon_convert);
+		$('img.lessons_icon').each(icon_convert);
+	</script>
+	{% block scripts %}
+	{% endblock %}
+</body>
+</html>

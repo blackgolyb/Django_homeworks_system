@@ -1,0 +1,29 @@
+{% extends "forms_wrap.html" %}
+{% load static %}
+{% block title %}
+	Login
+{% endblock %}
+
+{% block links %}
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/style.css' %}">
+{% endblock %}
+
+{% block name %}
+	Login
+{% endblock %}
+{% block content %}
+
+	<form action="" method="post" class="default-form">
+		{% csrf_token %}
+		<input type="text" placeholder="Username" name="username">
+		<input type="password" placeholder="Password" name="password">
+		<input type="submit" value="Login">
+		{% if login_error %}
+			<label class="error">{{ login_error }}</label>
+		{% endif %}
+	</form>
+	<section>
+		<a href="{% url 'password_reset' %}"> Forgot password </a>
+	</section>
+
+{% endblock %}
