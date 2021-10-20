@@ -7,27 +7,17 @@
   gap: 20px;
 }
 
-.comment-editor__wrapper{
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .3);
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  justify-content: center;
-  -ms-align-items: center;
-  align-items: center;
-  z-index: 99;
+/*--------------------------------*/
+.comment-editor__delete-form{
+  display: none !important;
 }
+/*--------------------------------*/
 
-.comment-editor{
-  width: 80%;
-  height: 80%;
-  display: block;
-  padding: 20px;
+
+.homework__comment__content{
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
 }
 
 .comment-editor form{
@@ -109,7 +99,7 @@
 
 .comment-editor__tools__delete{
   border-color: #c88585;
-  background-color: var(--blocks-color);;
+  background-color: var(--blocks-color);
   color: #c88585;
 }
 

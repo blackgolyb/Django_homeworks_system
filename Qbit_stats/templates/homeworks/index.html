@@ -12,60 +12,27 @@
 {% block content %}
 
     {% if user.is_teacher %}
+      <div class="create-homework__wrapper">
+        <div class="create-homework">
+          <form method="get" action="{% url 'get_groups_and_users' %}" name="search-form">
+            {% csrf_token %}
+            <button type="submit" name="button">pishov svitsu</button>
+          </form>
+          <input type="text" class="search-field">
+          <input type="button" value="Кнопка">
+          <div class="search-output"></div>
+        </div>
+        <div class="create-homework__bg"></div>
+      </div>
       {% if complite_homeworks %}
           <span>homeworks</span>
-          <div class="comment-editor__wrapper">
-            <div class="comment-editor default-block">
-              <form action="" method="post" name="filter_homework">
-                <section class="comment-editor__text-editor default-block">
-                  <textarea class="default-block" name="comment-text"></textarea>
-                </section>
-                <section class="comment-editor__tools">
-                  <section class="comment-editor__tools__left">
-                    <div class="default-btn comment-editor__tools__save">
-                      seve
-                    </div>
-                    <input type="submit" class="default-btn comment-editor__tools__save" value="save" name="save">
-                    <input type="submit" class="default-btn comment-editor__tools__delete" value="delete" name="delete">
-                  </section>
-                  <div class="default-btn comment-editor__tools__seve">
-                    cencel
-                  </div>
-                </section>
-              </form>
-            </div>
-          </div>
-          <div class="homeworks">
-              <section class="homework default-block">
-                <div class="homework__context">
-                  <header>
-                    <h2>some name</h2>
-                    <h2>Дополнительная информация</h2>
-                    <hr>
-                  </header>
-                  <div class="homework__additional-information">
-                    <p>
-                      Учитель:
-                      <a href="#">tc</a>
-                    </p>
-                    <p> Дата загрузки: 20.02.2020</p>
-                  </div>
-                  <div class="homework__buttons">
-                       <a class="homework__file" href="" onclick="alert('no file for download')">Скачать</a>
-                    <input id="homework-1" type="file" name="homework_file" onchange="this.form.submit()"><!--  onchange="uploadHomework(this)" -->
-                    <label class="homework__file" for="homework-1">Загрузить</label>
-                  </div>
-                </div>
-                <div class="homework__background1">
-                </div>
-                <div class="homework__background">
-                    <span>name</span>
-                </div>
-              </section>
-          </div>
+          {% for complite_homework in complite_homeworks %}
+              {% include "homeworks/complite_homework_template.html" %}
+          {% endfor %}
+
       {% endif %}
     {% else %}
-      {% if homework_list or individual_homeworks %}
+      {% if homeworks or individual_homeworks %}
           <div class="filter">
             <form action="{% url 'homeworks_filter' %}" method="get" name="filter_homework">
                 <ul>
@@ -114,11 +81,12 @@
           </div>
       {% endif %}
 
-      {% if homework_list %}
+      {% if homeworks %}
           <span>homeworks</span>
           <div class="homeworks">
-              {% for homework in homework_list %}
+              {% for homework in homeworks %}
                   {% get_status homework_id=homework.id user_id=user.id as status %}
+
                   {% include "homeworks/homework_template.html" %}
               {% endfor %}
           </div>
@@ -128,9 +96,10 @@
           <span>individual homeworks</span>
           <div class="individual-homeworks">
               {% for homework in individual_homeworks %}
+                {% get_status homework_id=homework.id user_id=user.id as status %}
                 {% include "homeworks/homework_template.html" %}
               {% endfor %}
-          </div>
+          </div>searchField
       {% endif %}
     {% endif %}
 
@@ -141,9 +110,11 @@
 {% block scripts %}
     <script src="http://twitter.github.io/hogan.js/builds/3.0.1/hogan-3.0.1.js"></script>
     <script src="{% static 'js/ajax_send.js' %}"></script>
-    {% if user.is_teacher %}
+    {% if not user.is_teacher %}
     <script src="{% static 'homeworks/js/filter.js' %}"></script>
     {% endif %}
+    <script src="{% static 'homeworks/js/comment_manager.js' %}"></script>
+    <script src="{% static 'homeworks/js/homework_creator.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/default_blocks.js' %}"></script>
     <!--
     <script type="text/javascript">

@@ -122,6 +122,52 @@
   transform: rotate(-45deg);
 }
 
+.selected-text{
+	background-color: #08f;
+	color: #f80;
+}
+
+.cover-block__wrapper.active{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+
+.cover-block__wrapper{
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.cover-block-bg{
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  position: absolute;
+}
+
+.cover-block{
+  width: 80%;
+  height: 80%;
+  display: block;
+  padding: 20px;
+  z-index: 100;
+}
+
+.invisible{
+	display: none;
+	visibility: hidden;
+}
+
 /*
 .default-fixed-block__close{
 	width: 30px;

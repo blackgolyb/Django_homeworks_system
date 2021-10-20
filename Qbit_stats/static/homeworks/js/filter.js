@@ -84,3 +84,7 @@ function render(data) {
     homeworks_div.innerHTML = homeworks_ounput;
     ind_homeworks_div.innerHTML = ind_homeworks_ounput;
 }
+
+function returnJson(json) {
+  render(json);
+}

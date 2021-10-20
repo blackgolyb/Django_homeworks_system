@@ -1,38 +1,74 @@
-<section class="homework default-block {% if homework.status == 0 %}not_done{% elif homework.status == 1 %}expected{% else %}done{% endif %}">
-	<form action="{% url 'complite_homeworks_upload' id=complite_homework.id %}" method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
+{% load homeworks_tag %}
+{% get_homework_by_complite_homework complite_homework_id=complite_homework.id as homework_by_complite_homework %}
+<section class="homework default-block {% if complite_homework.status == 0 %}expected{% elif complite_homework.status == 1 %}done{% endif %}">
 		<div class="homework__context">
 			<header>
-				<h2>{{ complite_homework.name }}</h2>
-				<h2>Дополнительная информация</h2>
+				<h2>{{ complite_homework.student }} | {{ homework_by_complite_homework }}</h2>
 				<hr>
 			</header>
-			<div class="homework__additional-information">
+			<section class="homework__additional-information">
 				<p>
-					Учитель:
-					<a href="{{ homework.teacher.get_absolute_url }}">{% if homework.teacher.full_name %}{{ homework.teacher.full_name }}{% else %}{{ homework.teacher }}{% endif %}</a>
+					 Студент:
+					<a href="{{ complite_homework.student.get_absolute_url }}">{% if complite_homework.student.full_name %}{{ complite_homework.student.full_name }}{% else %}{{ complite_homework.student }}{% endif %}</a>
 				</p>
-				<p> Дата загрузки: {{ homework.date }}</p>
-			</div>
-			<div class="homework__buttons">
-				{% if homework.file %}
-				   <a class="homework__file" href="{{ homework.file.url }}" download>Скачать</a>
+				<p> Дата загрузки: {{ complite_homework.date }}</p>
+			</section>
+			<section class="homework__buttons">
+				{% if homework_by_complite_homework.file %}
+					<a href="{{ homework_by_complite_homework.file.url }}" download>Скачать задание</a>
+				{% endif %}
+				{% if complite_homework.file %}
+				   <a class="homework__file" href="{{ complite_homework.file.url }}" download>Скачать</a>
 				{% else %}
 					 <a class="homework__file" href="" onclick="alert('no file for download')">Скачать</a>
 				{% endif %}
-		    <input id="homework-{{homework.id}}" type="file" name="homework_file" onchange="this.form.submit()"><!--  onchange="uploadHomework(this)" -->
-				<label class="homework__file" for="homework-{{homework.id}}">Загрузить</label>
-			</div>
-			{% if homework.complite_homework %}
-				{{ homework.complite_homework }}
-				<a href="{{ homework.complite_homework.file.url }}" download>download you homework</a>
-			{% endif %}
+				<form method="post" name="update_complite_homeworks_status" action="{% url 'update_complite_homeworks_status' id=complite_homework.id%}">
+					{% csrf_token %}
+					<input type="checkbox" name="status" onchange="change_status(this.form, this)" {% if complite_homework.status %}checked{% endif %}>
+					<lable for="status">спатус задания</lable>
+				</form>
+			</section>
+			<section class="homework__comment">
+				homework__comment
+				<div class="cover-block-optional">
+					<div class="homework__comment__content cover-block-activator default-blocks">
+						{{ complite_homework.task_comment }}
+					</div>
+					<div class="cover-block__wrapper comment-editor__wrapper">
+						<div class="cover-block-bg"></div>
+						<div class="cover-block default-block">
+							<form method="post" action="{% url 'update_complite_homework_comment' id=complite_homework.id%}" method="post" name="updata_complite_homework_comment">
+								{% csrf_token %}
+								<section class="comment-editor__text-editor default-block">
+									<textarea class="default-block" name="comment">{{ complite_homework.task_comment }}</textarea>
+								</section>
+							</form>
+							<form method="post" class="comment-editor__delete-form" action="{% url 'delete_complite_homework_comment' id=complite_homework.id%}" method="post" name="delete_complite_homework_comment">
+								{% csrf_token %}
+							</form>
+							<section class="comment-editor__tools">
+								<section class="comment-editor__tools__left">
+									<div id="save_complite_homework_comment" class="default-btn comment-editor__tools__save">
+										seve
+									</div>
+									<div id="delete_complite_homework_comment" onclick="updata_complite_homework_comment()" class="default-btn comment-editor__tools__delete">
+										delete
+									</div>
+								</section>
+								<div class="cover-block__exit-btn default-btn comment-editor__tools__exit">
+									cencel
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</section>
+
 
 		</div>
 		<div class="homework__background1">
 		</div>
 		<div class="homework__background">
-				<span>{{ homework.name }}</span>
+				<span>{{ complite_homework.student }} | {{ homework_by_complite_homework }}</span>
 		</div>
-	</form>
 </section>

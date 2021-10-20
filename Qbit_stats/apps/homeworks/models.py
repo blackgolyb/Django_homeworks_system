@@ -19,12 +19,12 @@ class Homework(models.Model):
     date        = models.DateField(verbose_name = "дата создания", auto_now_add = True, null = True)
 
     teacher     = models.ForeignKey('account.User', on_delete = models.CASCADE, related_name = "teacher_homeworks")
-    group       = models.ForeignKey('account.Groups_of_users', on_delete = models.CASCADE, related_name = "homeworks", blank=True, null=True)
-    user        = models.ForeignKey('account.User', on_delete = models.CASCADE, related_name = "homeworks", null=True)
+    groups      = models.ManyToManyField('account.Groups_of_users', related_name = "homeworks", blank=True, null=True)
+    users       = models.ManyToManyField('account.User', related_name = "homeworks", blank=True, null=True)
     topic       = models.ForeignKey(Topic, on_delete = models.CASCADE, related_name = "homework")
 
     def __str__(self):
-        return self.name + ' | ' +  str(self.user)# + (' | ' + str(self.group)if self.group else '')
+        return self.name# + (' | ' + str(self.group)if self.group else '')
 
     class Meta:
         verbose_name        = u"Домашнее задание"

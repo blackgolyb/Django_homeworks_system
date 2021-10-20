@@ -8,6 +8,15 @@ function ajaxSend(url, method, params) {
         },
     })
         .then(response => response.json())
-        .then(json => render(json))
+        .then(json => returnJson(json))
         .catch(error => console.error(error))
+}
+
+function ajaxSendForm(form) {
+  let url = form.action;
+  let method = form.method;
+  console.log(url, method);
+  let params = new URLSearchParams(new FormData(form)).toString();
+  // console.log(params);
+  ajaxSend(url, method, params);
 }
